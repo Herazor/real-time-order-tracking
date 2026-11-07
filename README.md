@@ -2,7 +2,7 @@
 
 Aplikasi untuk mengelola dan memantau status pesanan atau pekerjaan secara real-time menggunakan Go, React, PostgreSQL, dan WebSocket.
 
-## 1. Tech Stack
+## 1. Teknologi yang Digunakan
 
 ### Backend
 - Go
@@ -15,11 +15,11 @@ Aplikasi untuk mengelola dan memantau status pesanan atau pekerjaan secara real-
 - React
 - Vite
 
-### Infrastructure
+### Infrastruktur
 - Docker
 - Docker Compose
 
-## 2. Project Structure
+## 2. Struktur Proyek
 
 ```text
 study-case-1/
@@ -37,20 +37,22 @@ study-case-1/
 └── System-Design-Answers.pdf
 ```
 
-## 3. Requirements
+## 3. Persyaratan Sistem
 
-Pastikan sudah menginstal:
+Pastikan perangkat sudah memiliki:
 - Docker Desktop
 - Git
 
-## 4. How to Run
+## 4. Cara Menjalankan Aplikasi
 
-Clone repository:
+### Clone Repository
 
 ```bash
 git clone https://github.com/Herazor/real-time-order-tracking.git
 cd real-time-order-tracking
 ```
+
+### Menjalankan Aplikasi
 
 Jalankan seluruh aplikasi menggunakan satu perintah:
 
@@ -58,132 +60,147 @@ Jalankan seluruh aplikasi menggunakan satu perintah:
 docker compose up --build
 ```
 
-Docker Compose akan menjalankan:
-- PostgreSQL
-- Go Backend API
-- React Frontend
+Docker Compose akan menjalankan layanan berikut:
+- PostgreSQL sebagai database.
+- Go Backend sebagai layanan API.
+- React Frontend sebagai antarmuka aplikasi.
 
-Akses aplikasi:
+### Mengakses Aplikasi
 
-| Service | URL |
+| Layanan | URL |
 |---|---|
 | Frontend | http://localhost:5173 |
 | Backend | http://localhost:8080 |
-| PostgreSQL | Internal Docker network |
+| PostgreSQL | Jaringan internal Docker |
 
-Untuk menghentikan aplikasi:
+### Menghentikan Aplikasi
+
+Untuk menghentikan seluruh layanan:
 
 ```bash
 docker compose down
 ```
 
-Untuk menghentikan aplikasi sekaligus menghapus data database:
+Untuk menghentikan seluruh layanan sekaligus menghapus data database:
 
 ```bash
 docker compose down -v
 ```
 
-**Catatan:** Perintah kedua akan menghapus volume database.
+**Catatan:** Perintah kedua akan menghapus volume database sehingga seluruh data yang tersimpan di dalamnya ikut terhapus.
 
-## 5. Main Features
+## 5. Fitur Utama
 
-- Create new orders.
-- Retrieve all orders.
-- Retrieve order details.
-- Update order status.
-- Cancel orders.
-- Review cancellation requests.
-- Real-time order status updates using WebSocket.
-- Order event history.
-- Event sequence tracking.
-- Optimistic concurrency control using version checking.
+- Membuat pesanan baru.
+- Menampilkan seluruh pesanan.
+- Menampilkan detail pesanan.
+- Memperbarui status pesanan.
+- Membatalkan pesanan.
+- Meninjau permintaan pembatalan pesanan.
+- Memperbarui status pesanan secara real-time menggunakan WebSocket.
+- Menyimpan riwayat peristiwa pesanan.
+- Melacak urutan peristiwa menggunakan nomor urut.
+- Menggunakan Optimistic Concurrency Control melalui pemeriksaan versi data.
 
-## 6. API Endpoints
+## 6. Daftar API Endpoint
 
-| Method | Endpoint | Description |
+| Metode | Endpoint | Keterangan |
 |---|---|---|
-| POST | `/api/orders` | Create a new order |
-| GET | `/api/orders` | Retrieve all orders |
-| GET | `/api/orders/:id` | Retrieve order details |
-| GET | `/api/orders/:id/events` | Retrieve order event history |
-| PATCH | `/api/orders/:id/status` | Update order status |
-| POST | `/api/orders/:id/cancel` | Submit cancellation request |
-| PATCH | `/api/cancellations/:id/review` | Review cancellation request |
-| GET | `/ws/orders/:id` | Connect to real-time order updates |
+| POST | `/api/orders` | Membuat pesanan baru |
+| GET | `/api/orders` | Menampilkan seluruh pesanan |
+| GET | `/api/orders/:id` | Menampilkan detail pesanan |
+| GET | `/api/orders/:id/events` | Menampilkan riwayat peristiwa pesanan |
+| PATCH | `/api/orders/:id/status` | Memperbarui status pesanan |
+| POST | `/api/orders/:id/cancel` | Mengajukan permintaan pembatalan pesanan |
+| PATCH | `/api/cancellations/:id/review` | Meninjau permintaan pembatalan |
+| GET | `/ws/orders/:id` | Menghubungkan klien ke pembaruan pesanan secara real-time |
 
-## 7. Real-Time Communication
+## 7. Komunikasi Real-Time
 
-The application uses WebSocket to broadcast order status changes to connected clients.
+Aplikasi menggunakan WebSocket untuk mengirimkan perubahan status pesanan kepada seluruh klien yang sedang terhubung.
 
-When an order status changes:
-1. The backend processes the status update.
-2. The database stores the updated order.
-3. An order event is recorded.
-4. Connected WebSocket clients receive the update.
+Ketika status pesanan berubah, proses yang dilakukan adalah:
 
-The frontend can receive updates without refreshing the page.
+1. Backend memproses perubahan status pesanan.
+2. Database menyimpan data pesanan yang telah diperbarui.
+3. Sistem mencatat peristiwa perubahan pesanan.
+4. Klien yang terhubung melalui WebSocket menerima pembaruan tersebut.
 
-## 8. Implementation Status
+Dengan mekanisme ini, frontend dapat menerima perubahan status pesanan tanpa perlu memuat ulang halaman.
 
-| Feature | Status |
+## 8. Status Implementasi
+
+| Fitur | Status |
 |---|---|
-| REST API | Implemented |
-| PostgreSQL integration | Implemented |
-| Order event history | Implemented |
-| WebSocket updates | Implemented |
-| Event sequence tracking | Implemented |
-| Optimistic concurrency | Implemented |
-| Docker Compose | Implemented |
-| Authentication and authorization | Not implemented |
-| Idempotency request deduplication | Not implemented |
-| Automatic WebSocket reconnection and replay | Not implemented |
-| Redis Pub/Sub for multi-instance broadcasting | Not implemented |
-| Transactional Outbox | Not implemented |
+| REST API | Sudah Diimplementasikan |
+| Integrasi PostgreSQL | Sudah Diimplementasikan |
+| Riwayat Peristiwa Pesanan | Sudah Diimplementasikan |
+| Pembaruan WebSocket | Sudah Diimplementasikan |
+| Pelacakan Urutan Peristiwa | Sudah Diimplementasikan |
+| Optimistic Concurrency Control | Sudah Diimplementasikan |
+| Docker Compose | Sudah Diimplementasikan |
+| Autentikasi dan Otorisasi | Belum Diimplementasikan |
+| Deduplicasi Permintaan dengan Idempotency | Belum Diimplementasikan |
+| Penyambungan Ulang WebSocket dan Pemutaran Ulang Peristiwa Otomatis | Belum Diimplementasikan |
+| Redis Pub/Sub untuk Penyiaran Multi-Instance | Belum Diimplementasikan |
+| Transactional Outbox | Belum Diimplementasikan |
 
-## 9. Known Limitations
+## 9. Keterbatasan Sistem
 
-- Authentication and role-based authorization are not fully implemented.
-- Demo user IDs are used by the frontend.
-- Idempotency keys are not yet used for request deduplication.
-- WebSocket broadcasting uses an in-memory connection registry, so broadcasting is limited to a single backend instance.
-- Automatic WebSocket reconnection and event replay are not implemented.
-- Redis Pub/Sub is not integrated.
-- Transactional Outbox is not implemented.
-- The backend Docker image uses a precompiled Linux binary included in the repository.
+Beberapa keterbatasan yang masih terdapat dalam implementasi saat ini:
 
-## 10. Concurrency Control
+- Autentikasi dan otorisasi berbasis peran belum sepenuhnya diimplementasikan.
+- Frontend masih menggunakan ID pengguna demo.
+- Idempotency Key belum digunakan untuk mencegah pemrosesan permintaan yang sama secara berulang.
+- Penyiaran WebSocket menggunakan registri koneksi berbasis memori sehingga hanya mendukung satu instance backend.
+- Penyambungan ulang WebSocket dan pemutaran ulang peristiwa secara otomatis belum diimplementasikan.
+- Redis Pub/Sub belum diintegrasikan.
+- Transactional Outbox belum diimplementasikan.
+- Docker image backend menggunakan binary Linux hasil kompilasi yang telah disertakan dalam repository.
 
-The system uses optimistic concurrency control.
+## 10. Pengendalian Konkruensi
 
-Each order has a version number. A status update includes the expected version. The backend checks the current version before updating the order.
+Sistem menggunakan metode Optimistic Concurrency Control untuk mencegah konflik ketika beberapa pengguna memperbarui pesanan secara bersamaan.
 
-This helps prevent conflicting updates from overwriting each other.
+Setiap pesanan memiliki nomor versi (*version number*).
 
-## 11. Event History and Auditability
+Ketika melakukan perubahan status, permintaan harus menyertakan versi data yang diharapkan.
 
-Order status changes are recorded in the order event history.
+Backend kemudian memeriksa apakah versi yang dikirimkan masih sesuai dengan versi terbaru di database sebelum melakukan pembaruan.
 
-Each event contains information such as:
-- Order ID
-- Event type
-- Previous status
-- New status
-- Sequence number
-- Actor ID
-- Timestamp
+Mekanisme ini membantu mencegah perubahan data yang saling bertentangan dan menghindari penimpaan pembaruan dari pengguna lain.
 
-This allows the system to maintain a history of order changes.
+## 11. Riwayat Peristiwa dan Auditabilitas
 
-## 12. Additional Documentation
+Setiap perubahan status pesanan dicatat dalam riwayat peristiwa pesanan (*order event history*).
 
-See `System-Design-Answers.pdf` for explanations covering:
-- Real-time communication strategy
-- Handling missed events
-- Idempotency and event ordering
-- Concurrency control
-- Scaling strategy
-- Auditability
+Setiap peristiwa menyimpan informasi seperti:
 
-## 13. Notes
+- ID Pesanan.
+- Jenis Peristiwa.
+- Status Sebelumnya.
+- Status Terbaru.
+- Nomor Urut Peristiwa.
+- ID Aktor atau Pengguna.
+- Waktu Terjadinya Peristiwa.
 
-This project is a study case implementation. Some advanced production features are documented as future improvements and are not yet implemented.
+Dengan mekanisme ini, sistem dapat menyimpan jejak perubahan pesanan sehingga proses pemantauan dan penelusuran aktivitas menjadi lebih mudah.
+
+## 12. Dokumentasi Tambahan
+
+Penjelasan lebih lanjut mengenai perancangan sistem dapat dilihat pada dokumen `System-Design-Answers.pdf`.
+
+Dokumen tersebut membahas beberapa aspek perancangan sistem, yaitu:
+
+- Strategi komunikasi real-time.
+- Penanganan peristiwa yang terlewat.
+- Idempotensi dan pengurutan peristiwa.
+- Pengendalian konkruensi.
+- Strategi penskalaan sistem.
+- Auditabilitas dan riwayat aktivitas.
+
+## 13. Catatan
+
+Proyek ini merupakan implementasi dari studi kasus pengembangan sistem pelacakan pesanan dan pekerjaan secara real-time.
+
+Beberapa fitur lanjutan yang dibutuhkan untuk penggunaan pada lingkungan produksi masih menjadi bagian dari rencana pengembangan berikutnya dan belum diimplementasikan sepenuhnya.
