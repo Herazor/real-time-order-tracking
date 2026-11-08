@@ -186,20 +186,7 @@ Setiap peristiwa menyimpan informasi seperti:
 
 Dengan mekanisme ini, sistem dapat menyimpan jejak perubahan pesanan sehingga proses pemantauan dan penelusuran aktivitas menjadi lebih mudah.
 
-## 12. Dokumentasi Tambahan
-
-Penjelasan lebih lanjut mengenai perancangan sistem dapat dilihat pada dokumen `System-Design-Answers.pdf`.
-
-Dokumen tersebut membahas beberapa aspek perancangan sistem, yaitu:
-
-- Strategi komunikasi real-time.
-- Penanganan peristiwa yang terlewat.
-- Idempotensi dan pengurutan peristiwa.
-- Pengendalian konkruensi.
-- Strategi penskalaan sistem.
-- Auditabilitas dan riwayat aktivitas.
-
-## 13. Catatan
+## 12. Catatan
 
 Proyek ini merupakan implementasi dari studi kasus pengembangan sistem pelacakan pesanan dan pekerjaan secara real-time.
 
